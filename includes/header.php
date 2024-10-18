@@ -1,4 +1,5 @@
-<?php 
+<?php
+  session_start();
   define("APPURL", "http://localhost/coffee-blend/");
 ?>
 
@@ -45,12 +46,22 @@
 	          <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li>
 	          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	         
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <?php if(isset($_SESSION['username'])) : ?>
 	          <li class="nav-item cart"><a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span></a>
-			  <li class="nav-item"><a href="login.html" class="nav-link">login</a></li>
-			  <li class="nav-item"><a href="register.html" class="nav-link">register</a></li>
-
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle=""><?php echo $_SESSION['username']; ?></a>  
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li class="dropdown-item">action</li>
+                <li class="dropdown-item">another action</li>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item"><a href="<?php echo APPURL; ?>/auth/logout.php">Logout</a></li>
+              </ul>
+            </li>
+            <?php else: ?>
+              <li class="nav-item"><a href="<?php echo APPURL; ?>/auth/login.php" class="nav-link">login</a></li>
+              <li class="nav-item"><a href="<?php echo APPURL; ?>/auth/register.php" class="nav-link">register</a></li>
+            <?php endif; ?>
 	        </ul>
 	      </div>
 		</div>

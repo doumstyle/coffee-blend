@@ -1,6 +1,11 @@
 <?php require '../includes/header.php'; ?>
 <?php require '../config/config.php'; ?>
 <?php 
+
+  if(isset($_SESSION['username'])) {
+    header("Location: ".APPURL."");
+  }
+
   if(isset($_POST['submit'])) {
     if(empty($_POST['email']) OR empty($_POST['password'])) {
       echo '<script>alert("All fields are required")</script>';
@@ -16,6 +21,11 @@
 
       if($login->rowCount() > 0) {
         if(password_verify($password, $fetch['password'])) {
+          
+          $_SESSION['id'] = $fetch['id'];
+          $_SESSION['username'] = $fetch['username'];
+          $_SESSION['email'] = $fetch['email'];
+
           header("Location: ".APPURL."");
         } else {
           echo '<script>alert("Incorrect email or password")</script>';
